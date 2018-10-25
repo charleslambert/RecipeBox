@@ -1,2 +1,2 @@
 * RecipeBox
-  A simple command line tool to save, retrieve baking/cooking recipes.
+  A simple command line tool to save and retrieve baking/cooking recipes.
