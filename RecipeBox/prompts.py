@@ -79,3 +79,13 @@ def amount_prompt(prompt):
             return Fraction(inp[0]) + Fraction(inp[1])
         except (ValueError, NameError):
             print(f"Invalid amout can be whole, fraction or mixed number")
+
+
+def measure_prompt(prompt, plural):
+    measures = ["tbsp", "tsp", "cup", "pinch"]
+    if plural:
+        measures = [measure + "s" for measure in measures]
+
+    sel = list_items(prompt, measures)
+
+    return measures[sel]

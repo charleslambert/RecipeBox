@@ -3,7 +3,7 @@ from fractions import Fraction
 
 import click
 
-from prompts import amount_prompt, list_items, sanitized_input, y_n_prompt
+from prompts import amount_prompt, list_items, sanitized_input, y_n_prompt, measure_prompt
 from recipe import Recipe
 from store import Store
 
@@ -18,12 +18,17 @@ def new_recipe():
     recipe["title"] = input("Recipe Name:\n  ")
 
     while True:
-        print("Add an ingredient:")
         ingredient = {}
+        plural = False
+
+        print("Add an ingredient:")
 
         ingredient["name"] = sanitized_input("  Name: ", str)
-        ingredient["amount"] = to_tuple(amount_prompt("  Amount: "))
-        ingredient["measure"] = sanitized_input("  Measurment: ", str)
+        ingredient["amount"] = amount_prompt("  Amount: ")
+        if ingredient["amount"] > 1:
+            ingredient["amount"] = to_tuple(ingredient["amount"])
+            plural = True
+        ingredient["measure"] = measure_prompt("  Measurment: ", plural)
         recipe["ingredients"].append(ingredient)
 
         if y_n_prompt("Add more ingredients", "n") == "n":
